@@ -263,7 +263,7 @@ def visualize_model(layers, model_desc, vol_size=(256,256,1)):
     return None
 
 
-def create_model(layers, model_desc, batch_norm=False, vol_size=(256,256,1), data_generator=None):
+def create_model(layers, model_desc, batch_norm=False, vol_size=(256,256,1), data_generator=None,hyper_parameters=''):
     model_dir = os.path.join('..', 'models')
     K.clear_session()
     gpu_options = tf.GPUOptions(allow_growth=True)
@@ -272,12 +272,12 @@ def create_model(layers, model_desc, batch_norm=False, vol_size=(256,256,1), dat
     model_class = Network_Building.new_model(image_size=vol_size,layers=layers,
                                              visualize=False, batch_normalization=batch_norm)
     model = model_class.model
-    tensorboard_output = os.path.join('..','Tensorboard_models',model_desc)
+    tensorboard_output = os.path.join('..','Tensorboard_models',model_desc,hyper_parameters)
     if not os.path.exists(tensorboard_output):
         os.makedirs(tensorboard_output)
     tensorboard = TensorBoardImage(log_dir=tensorboard_output, batch_size=2, write_graph=True, write_grads=False,
                               write_images=True, update_freq='epoch', histogram_freq=0, data_generator=data_generator)
-    model_output = os.path.join(model_dir, model_desc, 'Model_saves')
+    model_output = os.path.join(model_dir, model_desc,hyper_parameters,)
     if not os.path.exists(model_output):
         os.makedirs(model_output)
     save_file_name = os.path.join(model_output,'weights-improvement-{epoch:02d}.hdf5')
