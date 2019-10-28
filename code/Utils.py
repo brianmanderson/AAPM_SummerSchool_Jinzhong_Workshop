@@ -195,7 +195,7 @@ class TensorBoardImage(TensorBoard):
         for i in range(num_images):
             start = int(50*i)
             x,y = self.data_generator.__getitem__(i)
-            pred = self.model.predict_on_batch(x)
+            pred = self.model.predict(x)
             out_image[:,step*i + start:step*(i+1)+start] = x[0,...,-1]
             out_mask[:, step * i + start:step * (i + 1) + start] = y[0, ..., -1]
             out_pred[:, step * i + start:step * (i + 1) + start] = pred[0, ..., -1]

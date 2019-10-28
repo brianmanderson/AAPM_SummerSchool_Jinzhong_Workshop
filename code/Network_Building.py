@@ -86,6 +86,8 @@ class new_model(object):
         UNet_Core_class.get_unet(layers)
         self.model = UNet_Core_class.created_model
 
+def main():
+    pass
 
 if __name__ == '__main__':
-    None
+    main()
